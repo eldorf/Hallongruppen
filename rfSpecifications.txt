@@ -1,0 +1,44 @@
+TX433N Transmitter ASK 433.9 MHz
+
+Features
+no adjustments required
+stable output
+suitable for remote controls, telemetry, ...
+Specifications
+frequency: 433MHz
+modulation: ASK
+circuit shape: SAW
+date rate: 100kbps
+peak output power: 10mW
+power supply: 3 ~ 12Vdc
+pin numbers:
+1: GND
+2: data in
+3: Vcc
+4: ANT
+
+
+====================================
+
+RX433N mottagarmodul ASK 433.9 MHz
+
+Features
+no adjustments required
+stable output
+suitable for remote controls, telemetry, ...
+Specifications
+range: 200m in open air
+frequency: 433MHz
+modulation: ASK
+sensitivity: -106dBm
+power supply: 4.5-5.5Vdc
+digital and linear output
+pin numbers:
+1: gnd
+2: digital output
+3: linear output
+4: Vcc
+5: Vcc
+6: gnd
+7: gnd
+8: antenna (30-35cm)
