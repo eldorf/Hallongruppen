@@ -1,17 +1,19 @@
 #include <wiringPi.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
+#include <cstdio>
+#include <cstdlib>
 
 #define SHORT 0
 #define LONG 1
 #define LAST 2
 
-#define SHORT_DELAY 100
-#define LONG_DELAY 200
+#define SHORT_DELAY 105
+#define LONG_DELAY 365
 
-int sequence[] = {SHORT, LONG, LONG, LAST};
+//int sequence[] = {SHORT, LONG, LONG, LAST};
+//int sequence[] = {LONG, LONG, LONG, LONG, LONG, LONG, LONG, LONG, LONG, LONG, SHORT, SHORT, SHORT, LONG, SHORT, LONG, SHORT, LONG, SHORT, LONG, SHORT, SHORT, SHORT, LONG, SHORT, LAST};
+int sequence[] = {LONG, LONG, LONG, LONG, LONG, LONG, LONG, LONG, LONG, LONG, SHORT, SHORT, SHORT, LONG, SHORT, LONG, SHORT, LONG, SHORT, LONG, SHORT, LONG, SHORT, SHORT, SHORT, LAST};
+
 
 void playShort();
 void playLong();
@@ -24,23 +26,32 @@ int main()
     pinMode(23, OUTPUT);
     digitalWrite(23,0);
 
-    int seqNumber = 0;
-    int action;
-    do {
-        action = sequence[seqNumber];
-        switch (action)
-        {
-            case SHORT:
-                playShort();
-                break;
-            case LONG:
-                playLong();
-                break;
-            default:
-        }
-        seqNumber++;
-  } while(action != LAST) 
+    
+    digitalWrite(23,0);
 
+    int i = 0;
+    for (; i < 4 ; i++)
+    {
+	    int seqNumber = 0;
+	    int action;
+	    do {
+		    action = sequence[seqNumber];
+		    switch (action)
+		    {
+			    case SHORT:
+				    playShort();
+				    break;
+			    case LONG:
+				    playLong();
+				    break;
+			    default:
+				    ;
+		    }
+		    seqNumber++;
+	    } while(action != LAST); 
+
+      delayMicroseconds(1000);
+  }
   return 0 ;
 }
 
