@@ -8,17 +8,36 @@ int main(int argc, char** argv)
 {
     CommandLookup lookup;
     std::string command;
-    if (argc == 2)
+    if (argc == 3)
     {
-        if (strncmp(argv[1], "on", sizeof("on")) == 0)
+        Connector* connector = 0;
+        if (strncmp(argv[1], "A", sizeof("A")) == 0)
         {
-            std::cout << "Turning on\n";
-            command = lookup.tableA.on;
+           connector = lookup.getConnectorA(); 
         }
-        else if (strncmp(argv[1], "off", sizeof("off")) == 0)
+        else if (strncmp(argv[1], "D", sizeof("D")) == 0)
         {
-            std::cout << "Turning off\n";
-            command = lookup.tableA.off;
+           connector = lookup.getConnectorD(); 
+        }
+        else if (strncmp(argv[1], "E", sizeof("E")) == 0)
+        {
+           connector = lookup.getConnectorE(); 
+        }
+        else
+        {
+            std::cout << "Unknown connector type \"" << argv[1] <<"\"" << std::endl;
+            return 1;
+        }
+
+        if (strncmp(argv[2], "on", sizeof("on")) == 0)
+        {
+            std::cout << "Turning on " << connector->getName() << std::endl;
+            command = connector->on();
+        }
+        else if (strncmp(argv[2], "off", sizeof("off")) == 0)
+        {
+            std::cout << "Turning off " << connector->getName() << std::endl;
+            command = connector->off();
         }
         else
         {
@@ -28,7 +47,7 @@ int main(int argc, char** argv)
     }
     else
     {
-        std::cout << "usage: command on|off\n";
+        std::cout << "usage: command A|B|C on|off\n";
     }
 
 
