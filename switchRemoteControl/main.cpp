@@ -15,6 +15,14 @@ int main(int argc, char** argv)
         {
            connector = lookup.getConnectorA(); 
         }
+        else if (strncmp(argv[1], "B", sizeof("B")) == 0)
+        {
+           connector = lookup.getConnectorB(); 
+        }
+        else if (strncmp(argv[1], "C", sizeof("C")) == 0)
+        {
+           connector = lookup.getConnectorC(); 
+        }
         else if (strncmp(argv[1], "D", sizeof("D")) == 0)
         {
            connector = lookup.getConnectorD(); 

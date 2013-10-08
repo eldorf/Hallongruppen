@@ -20,25 +20,43 @@ class CommandLookup
         std::string off() {return "llllllllllkkklklklklkkklk"; }
         std::string getName() { return "Connector A"; }
     };
+    class ConnectorB : public Connector
+    {
+        public:
+        std::string on() { return "llllllllllklkkklklklklkkk"; }
+        std::string off() {return "llllllllllklkkklklklkkklk"; }
+        std::string getName() { return "Connector B"; }
+    };
+    class ConnectorC : public Connector
+    {
+        public:
+        std::string on() { return "llllllllllklklkkklklklkkk"; }
+        std::string off() {return "llllllllllklklkkklklkkklk"; }
+        std::string getName() { return "Connector C"; }
+    };
     class ConnectorD : public Connector
     {
         public:
-        std::string on() { return "lllllllllllklklklkkklklkkk"; }
-        std::string off() {return "lllllllllllklklklkkklkkklk"; }
+        std::string on() { return "llllllllllklklklkkklklkkk"; }
+        std::string off() {return "llllllllllklklklkkklkkklk"; }
         std::string getName() { return "Connector D"; }
     };
     class ConnectorE : public Connector
     {
         public:
-        std::string on() { return "lllllllllllklklklklkkklkkk"; }
-        std::string off() {return "lllllllllllklklklklkkkkklk"; }
+        std::string on() { return "llllllllllklklklklkkklkkk"; }
+        std::string off() {return "llllllllllklklklklkkkkklk"; }
         std::string getName() { return "Connector E"; }
     };
     ConnectorA connectorA;
+    ConnectorB connectorB;
+    ConnectorC connectorC;
     ConnectorD connectorD;
     ConnectorE connectorE;
      public:
         Connector* getConnectorA() { return &connectorA; }
+        Connector* getConnectorB() { return &connectorB; }
+        Connector* getConnectorC() { return &connectorC; }
         Connector* getConnectorD() { return &connectorD; }
         Connector* getConnectorE() { return &connectorE; }
 };
