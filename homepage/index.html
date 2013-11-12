@@ -1,0 +1,152 @@
+<html>
+<head>
+<script type="text/javascript">
+      
+var maxValue = 1000;
+	  
+window.onload = setupRefresh;
+
+function formatCells(table){
+      var cells = table.getElementsByTagName('td');
+	  
+      var colors = ['#FF0000', 'blue', 'green','red', 'blue', 'green','red', 'blue', 'green', 'red', 'blue', 'green'];
+    for (var c = 0, len = cells.length; c < len; c++){
+		cells[c].style.backgroundColor = colors[c];
+	}
+}
+
+function setScore(table, value){
+      var cells = table.getElementsByTagName('td');
+	   
+    for (var c = 0, len = cells.length; c < len; c++){
+		if((cells.length - ((value/maxValue)*cells.length)) <= c) {
+			cells[c].style.backgroundColor = '#666666';
+		}
+		else {
+			cells[c].style.backgroundColor = '#cccccc';
+		}
+	}
+}
+	  
+function showHint(str)
+{
+if (str.length==0)
+  { 
+  document.getElementById("txtHint").innerHTML="";
+  return;
+  }
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET","gethint.php?q="+str,true);
+xmlhttp.send();
+}
+
+function setDrinker(str)
+{
+if (str.length==0)
+  { 
+  document.getElementById("txtDrinker").innerHTML="";
+  return;
+  }
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("txtDrinker").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET","setdrinker.php?drinker="+str,true);
+xmlhttp.send();
+}
+
+function showValue()
+{
+
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    var res = xmlhttp.responseText;
+    var splitted = res.split(";");
+    document.getElementById("tempData").innerHTML=splitted[1];
+    document.getElementById("txtData").innerHTML=splitted[0];
+	setScore(document.getElementById('meter'), xmlhttp.responseText);
+    }
+  }
+xmlhttp.open("GET","getdata.php",true);
+xmlhttp.send();
+
+}
+
+function setupRefresh() {
+  //setTimeout("showValue()", 1000); // milliseconds
+  setInterval("showValue();",500);
+  //formatCells(document.getElementById('meter')); 
+ 
+}
+
+</script>
+</head>
+<body>
+
+<table border="0" cellpadding="5" cellspacing="1" bgcolor="#000000"><tr>
+<td bgcolor="#ffffff" width="200">
+<p><b>Drunk-o-tronic:</b></p>
+<form> 
+Drinker name: <input type="text" onkeyup="setDrinker(this.value)">
+</form>
+<p><span id="txtDrinker"></span></p>
+
+<p>Data: <span id="txtData">Niente</span></p>
+<p>Temp: <span id="tempData">Niente</span></p>
+
+<input type="button" value="Skicka" name="Senda">
+</td>
+<td bgcolor="#ffffff" width="50">
+<table id="meter" border="0" cellpadding="2" cellspacing="2" bgcolor="#ffffff" width="100%">
+<tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+<tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+<tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+<tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+<tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+<tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+<tr><td bgcolor="#666666">&nbsp;</td></tr>
+<tr><td bgcolor="#666666">&nbsp;</td></tr>
+<tr><td bgcolor="#666666">&nbsp;</td></tr>
+<tr><td bgcolor="#666666">&nbsp;</td></tr>
+</table>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
