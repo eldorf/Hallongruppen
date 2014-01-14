@@ -39,12 +39,12 @@ int main(int argc, char** argv)
 
         if (strncmp(argv[2], "on", sizeof("on")) == 0)
         {
-            std::cout << "Turning on " << connector->getName() << std::endl;
+            //std::cout << "Turning on " << connector->getName() << std::endl;
             command = connector->on();
         }
         else if (strncmp(argv[2], "off", sizeof("off")) == 0)
         {
-            std::cout << "Turning off " << connector->getName() << std::endl;
+            //std::cout << "Turning off " << connector->getName() << std::endl;
             command = connector->off();
         }
         else
