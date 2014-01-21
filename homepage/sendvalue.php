@@ -15,7 +15,7 @@ $alcoValue = fread($falco, filesize($alcoFile));
 $thermoValue = fread($fthermo, filesize($thermoFile));
 
 // compose data  to send 
-$data = $drinkerValue.", ".$alcoValue;
+$data = $drinkerValue.", ".$alcoValue."\nTemp, ".$thermoValue;
 
 // URL to Xively
 $url = "https://api.xively.com/v2/feeds/843323762.csv";
@@ -28,7 +28,7 @@ $opts = array(
 		'content' => $data
 	)
 );
-	
+
 // perform PUT request and get output, but don't care about the result...
 $context  = stream_context_create($opts);
 $result = file_get_contents( $url, false, $context);
