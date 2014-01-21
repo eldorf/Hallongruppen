@@ -30,28 +30,8 @@ function setScore(table, value){
 	  
 function showHint(str)
 {
-if (str.length==0)
-  { 
-  document.getElementById("txtHint").innerHTML="";
+  document.getElementById("txtHint").innerHTML=str;
   return;
-  }
-if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-xmlhttp.onreadystatechange=function()
-  {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    {
-    document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
-    }
-  }
-xmlhttp.open("GET","gethint.php?q="+str,true);
-xmlhttp.send();
 }
 
 function setDrinker(str)
@@ -78,7 +58,31 @@ xmlhttp.onreadystatechange=function()
   }
 xmlhttp.open("GET","setdrinker.php?drinker="+str,true);
 xmlhttp.send();
+
+ showHint('');
 }
+
+
+function sendValue() {	
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp2=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp2.onreadystatechange=function()
+	  {
+	  if (xmlhttp2.readyState==4 && xmlhttp2.status==200)
+		{
+		showHint('Data sent to Xively!');
+		}
+	  }
+	xmlhttp2.open("GET","sendvalue.php",true);
+	xmlhttp2.send();
+}
+
 
 function showValue()
 {
@@ -99,7 +103,7 @@ xmlhttp.onreadystatechange=function()
     var splitted = res.split(";");
     document.getElementById("tempData").innerHTML=splitted[1];
     document.getElementById("txtData").innerHTML=splitted[0];
-	setScore(document.getElementById('meter'), xmlhttp.responseText);
+	setScore(document.getElementById('meter'), splitted[0]);
     }
   }
 xmlhttp.open("GET","getdata.php",true);
@@ -108,10 +112,7 @@ xmlhttp.send();
 }
 
 function setupRefresh() {
-  //setTimeout("showValue()", 1000); // milliseconds
-  setInterval("showValue();",500);
-  //formatCells(document.getElementById('meter')); 
- 
+  setInterval("showValue();",500); 
 }
 
 </script>
@@ -122,14 +123,15 @@ function setupRefresh() {
 <td bgcolor="#ffffff" width="200">
 <p><b>Drunk-o-tronic:</b></p>
 <form> 
-Drinker name: <input type="text" onkeyup="setDrinker(this.value)">
+Drinker name: <input type="text" name="drinker" onkeyup="setDrinker(this.value)">
 </form>
 <p><span id="txtDrinker"></span></p>
 
 <p>Data: <span id="txtData">Niente</span></p>
 <p>Temp: <span id="tempData">Niente</span></p>
 
-<input type="button" value="Skicka" name="Senda">
+<input type="button" value="Skicka" name="Senda" onclick="sendValue()">
+<p>&nbsp; <span id="txtHint"></span></p>
 </td>
 <td bgcolor="#ffffff" width="50">
 <table id="meter" border="0" cellpadding="2" cellspacing="2" bgcolor="#ffffff" width="100%">
