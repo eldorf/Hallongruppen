@@ -20,6 +20,11 @@ ser = serial.Serial(usbport, 9600, timeout=1)
 ser.readline() # clear the buffer
 alcometerIndex = 0
 thermoIndex = 3
+
+lampAon = false
+lampBon = false
+lampCon = false
+
 logging.debug("STARTING...")
 try:
     with open('/home/pi/hallongruppen/alcometer/termovalues.txt', 'w') as flog:
@@ -37,9 +42,9 @@ try:
                 logging.debug("Alcometer: {0}".format(value))
                 with open('/home/pi/hallongruppen/homepage/alko_value', 'w') as f:
                     f.write(str(value))
-                if value > 385:
+                if (value > 385) :
                     subprocess.call(["/home/pi/hallongruppen/switchRemoteControl/switcher" ,"B", "on"]) 
-                else:
+                else if (value < 383):
                     subprocess.call(["/home/pi/hallongruppen/switchRemoteControl/switcher" ,"B", "off"]) 
                     
 
@@ -52,7 +57,7 @@ try:
                 temp = k*value + m
                 if temp > 23:
                     subprocess.call(["/home/pi/hallongruppen/switchRemoteControl/switcher" ,"A", "on"]) 
-                else:
+                else if temp < 22:
                     subprocess.call(["/home/pi/hallongruppen/switchRemoteControl/switcher" ,"A", "off"]) 
                 with open('/home/pi/hallongruppen/homepage/thermo_value', 'w') as f:
                     f.write(str(temp))
